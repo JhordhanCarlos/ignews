@@ -1,5 +1,6 @@
 import NextAuth from "next-auth";
 import GithubProvider from "next-auth/providers/github";
+import { signIn } from "next-auth/react";
 
 export default NextAuth({
   // Configure one or more authentication providers
@@ -11,4 +12,12 @@ export default NextAuth({
     }),
     // ...add more providers here
   ],
+  callbacks: {
+    async signIn({user, account, profile}){
+      console.log(user)
+
+      return true
+    },
+  }
 })
+
