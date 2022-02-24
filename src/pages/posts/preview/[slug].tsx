@@ -1,4 +1,4 @@
-import { GetStaticProps } from "next"
+import { GetStaticPaths, GetStaticProps } from "next"
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -54,10 +54,10 @@ export default function PostPreview({ post } : PostPreviewProps){
     )
 }
 
-export const getStaticPaths = () =>{
+export const getStaticPaths: GetStaticPaths = async () =>{
     return {
-        paths : [],
-        fallback : 'blocking'
+        paths : [], //Coloque {param: {slug: ''}} para gerar páginas estáticas na build da aplicação ao invés de gerar guando requisitado;
+        fallback : 'blocking' // possíveis valores: true, false, blocking
     }
 }
 
@@ -82,6 +82,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) =>{
     return {
         props: {
             post
-        }
+        },
+        redirect: 60 * 30 //30 minutos
       }
 }
